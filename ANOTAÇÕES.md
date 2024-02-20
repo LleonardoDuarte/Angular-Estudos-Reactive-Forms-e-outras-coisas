@@ -259,10 +259,26 @@ public foodList: Array<FoodList> = []; aqui tiramos o array como string e trazem
     import { ReactiveFormsModule } from '@angular/forms';, apartir dai ja se consegue realizar a sua utilização.
 
   - Para uso do FormBuilder devemos importa-lo dentro do arquivo ts do nosso componente e coloca-lo em injeção de dependecia no constructor
-  import { FormBuilder } from '@angular/forms';
-  constructor(private fb:FormBuilder) { }
+    import { FormBuilder } from '@angular/forms';
+    constructor(private fb:FormBuilder) { }
 
-  - 
+  - Diferente do FormControl no [formGroup] para que consigamos pegar as informaçoes pelas interpolations devemos chamar como se fosse uma requisição, exemplo: {{ cadastroForm.get("firstName")?.value }}, nesse caso a ? serve para realizar uam validação de "se existir exiba, se nao existir nao faça nada", lembrando que sem a ? a aplicação irá se quebrar.
+
+  # Validator
+
+  - Validator são formas de realizar validações nos inputs dos nossos formulários, para usar o validators deve-se importa-lo e usar dentro do seu array de objetos, exemplo:
+    <!-- import -->
+
+    import { Validators } from '@angular/forms';
+
+      <!-- array de objetos -->
+
+    public cadastroForm: FormGroup = this.formBuilder.group({
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    });
+
+    - No Validator existe algumas iterações que voce coloca nas interpolações, as mais comuns são o .errors (ira mostrar se existe erro no envio), .touched (quando se toca no formulário e sai ele passa para true), dirty(quando se digita alguma coisa ele passa para true)
 
 # Sobre rotas e mudança de página no angular
 

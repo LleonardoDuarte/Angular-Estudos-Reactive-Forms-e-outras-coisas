@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'reactive-forms',
@@ -7,12 +7,22 @@ import { FormBuilder, FormGroup } from '@angular/forms';
   styleUrls: ['./reactive-forms.component.scss'],
 })
 export class ReactiveFormsComponent implements OnInit {
-public cadastroForm:FormGroup = this.formBuilder.group({
-  firstName:['']
-})
-
+  public cadastroForm: FormGroup = this.formBuilder.group({
+    // aqui o validador so envia o input se tiver algum valor nele
+    firstName: ['', Validators.required],
+    lastName: ['', [Validators.required, Validators.minLength(4)]],
+    email: ['', [Validators.required, Validators.email]],
+  });
 
   constructor(private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {}
+
+  public submitForm() {
+    if (this.cadastroForm.valid) {
+      console.log(this.cadastroForm);
+      console.log(this.cadastroForm.value.firstName);
+      console.log(this.cadastroForm.value.lastName);
+    }
+  }
 }

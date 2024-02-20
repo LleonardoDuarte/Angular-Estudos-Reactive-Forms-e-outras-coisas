@@ -1,3 +1,38 @@
-<form [formGroup]="cadastroForm">
-  <input type="text" name="" formControlName="firstName">
+<form [formGroup]="cadastroForm" (ngSubmit)="submitForm()">
+  <label>
+    Nome:
+    <input type="text" name="" formControlName="firstName" />
+
+    <span
+      *ngIf="
+        (!cadastroForm.get('firstName')?.errors &&
+          !cadastroForm.get('firstName')?.touched) ||
+        !cadastroForm.get('firstName')?.dirty
+      "
+    >
+      Favor adicionar um nome</span
+    >
+  </label>
+  <label>
+    Sobrenome:
+    <input type="text" name="" formControlName="lastName" maxlength="5" />
+  </label>
+  <br />
+
+  <label>
+    Email:
+    <input type="email" formControlName="email" />
+  </label>
+
+  <p>
+    {{ cadastroForm.get("lastName")?.value | json }}
+    {{ cadastroForm.get("lastName")?.errors | json }}
+    {{ cadastroForm.get("email")?.errors | json }}
+    <!--
+    {{ cadastroForm.get("firstName")?.touched | json }}
+    {{ cadastroForm.get("firstName")?.dirty | json }} -->
+  </p>
+
+  <!-- aqui eu digo que o botao so ira se habilitar se todos os requisitos do formulario forem cumpridos. -->
+  <button [disabled]="cadastroForm.invalid">Enviar</button>
 </form>
